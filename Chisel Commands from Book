@@ -1,0 +1,97 @@
+ All Chisel Commands from Book:
+ 
+ val and = a & b //bitwise and
+ val or = a | b // bitwise or
+ val xor = a ^ b // bitwise xor
+ val not = ~a //biwtise negation
+ 
+ val add = a + b // addition
+ val sub = a - b // subtraction
+ val neg = -a // negate
+ val mul = a * b // multiplication
+ val div = a / b //divsion
+ val mod = a % b // module operation
+ 
+ val w = Wire(Uint())
+ 
+ w := a & b
+ 
+ val sign = x(31)
+ 
+ val Lowbyte = largeWord(7, 0)
+ 
+ val word = highbyte ## lowByte
+ 
+ -------------------------------------------------------------------------------------
+ Operator	Description					Data Types
+ -------------------------------------------------------------------------------------
+ */%		multiplication,division,modulus			UInt,SInt
+ +-		addition,subtraction				UInt,SInt
+ === =/=	equal,not equal					UInt,SInt,returns Bool
+ > >= < <=	Comparison					UInt,SInt,returns Bool
+ << >>		shift left,shift right(sign extend on SInt)	UInt,SInt
+ ~		NOT						UInt,SInt,Bool
+ & | ^		AND,OR,XOR					UInt,SInt,Bool
+ !		logical NOT					Bool
+ && ||		logical AND,OR					Bool
+ -------------------------------------------------------------------------------------
+ 			Table 2.1: Chisel defined hardware operators
+ 			
+ --------------------------------------------------------------------------------------
+ Function		Description				Data Types
+ --------------------------------------------------------------------------------------
+ v.andR v.orR v.xorR	AND,OR,XOR reduction			UInt,SInt, returns Bool
+ v(n)			extraction of a single bit		UInt,SInt
+ v(end,start)		bitfield extraction			UInt,SInt
+ Fill(n,v)		bistring replication, n times		UInt,SInt
+ a ## b			bitfield concatenation			UInt,SInt
+ Cat(a,b,...)		bitfield concatenation			UInt,SInt
+ --------------------------------------------------------------------------------------
+ 		Table 2.2: Chisel defined hardware functions, invoked on v.
+ 
+ 
+ val result = Mux(sel, a, b)
+ 
+ val reg = RegInit(0.U(8.W))
+ 
+ reg := d
+ val q = reg
+ 
+ val nextReg = RegNext(d)
+ val bothReg = RegNext(d, 0.U)
+ 
+ val cntReg = RegInit (0.U(8.W))
+cntReg := Mux( cntReg === 9.U, 0.U, cntReg + 1.U)
+
+
+
+class Channel() extends Bundle {
+	val data = UInt(32.W)
+	val valid = Bool()
+}
+
+val.ch = Wire(new Channel())
+ch.data := 123.U
+ch.valid := true.B
+
+val b = ch.valid
+
+val channel = ch
+
+val v = Wire(Vec (3, UInt (4.W)))
+
+v(0) := 1.U
+v(1) := 3.U
+v(2) := 5.U
+
+val index = 1.U(2.W)
+val a = v( index)
+
+
+val vec = Wire(Vec(3,UInt(8.W)))
+vec(0) := x
+vec(1) := y
+vec(2) := z
+val muxOut = vec(select)
+
+
